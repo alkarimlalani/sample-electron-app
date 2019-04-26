@@ -12,3 +12,9 @@ console.log("Hello from the renderer process!");
   }
   console.log(stdout);
 });
+
+// When a message is recieved from the child process
+// console.log the message
+child.on('message', message => {
+  console.log('message from child:', message);
+});
