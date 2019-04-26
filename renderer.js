@@ -26,3 +26,10 @@ child.on('message', message => {
   // as 'renderer-to-main'
   ipcRenderer.send('renderer-to-main', message);
 });
+
+
+// When a message is recieved from the main process, forward it
+// to the child process 
+ipcRenderer.on('main-to-renderer', (event, message) => {
+  child.send(message);
+})

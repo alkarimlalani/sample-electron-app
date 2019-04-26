@@ -36,6 +36,10 @@ function createWindow () {
   // Receive messages from the renderer process
   ipcMain.on('renderer-to-main', (event, message) => {
     console.log("Message from renderer:", message);
+    // Send a response to the renderer process
+    // Note: the channel to send such communications is defined as
+    // the 'main-to-renderer` channel
+    event.sender.send('main-to-renderer', 'Wherever you hear the song: We Are Not Alone');
   })
 }
 
