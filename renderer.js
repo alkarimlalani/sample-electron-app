@@ -4,6 +4,10 @@
 
 const { fork } = require('child_process');
 
+// Require the IPC (inter process communication) module to communicate
+// with the main process
+const { ipcRenderer } = require('electron')
+
 console.log("Hello from the renderer process!");
 
  const child = fork('child.js', null, (error, stdout, stderr) => {
@@ -17,4 +21,8 @@ console.log("Hello from the renderer process!");
 // console.log the message
 child.on('message', message => {
   console.log('message from child:', message);
+  // Forward the message to the main process
+  // Note, the channel over which we communicate has been defined
+  // as 'renderer-to-main'
+  ipcRenderer.send('renderer-to-main', message);
 });
